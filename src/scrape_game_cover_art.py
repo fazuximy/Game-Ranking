@@ -4,6 +4,7 @@ from PIL import Image
 import requests
 from pathlib import Path
 import re
+import urllib
 
 platform_id_dict = {
     "all":0,
@@ -36,13 +37,13 @@ platform_id_dict = {
 path = Path(__file__).parent.parent
 cover_art_dir = path / "data" / "cover_art"
 
-platform = "xbox series x"
-game_name = "pentiment"
+platform = "pc"
+game_name = "command & conquer generals zero hour"
 
 platform_id = platform_id_dict[platform]
 platform_url_part = f"platform_id%5B%5D={platform_id}"
-name_url_part = f"name={game_name}"
-search_url = f"https://thegamesdb.net/search.php?{platform_url_part}&{name_url_part}"
+name_url_part = f"name={urllib.parse.quote_plus(game_name)}"
+search_url = f"https://thegamesdb.net/search.php?{platform_url_part}&{name_url_part})"
 
 search_result_page = requests.get(search_url)
 
